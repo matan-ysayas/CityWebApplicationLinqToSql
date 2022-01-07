@@ -23,24 +23,38 @@ namespace CityWebApplicationLinqToSql.Controllers
         }
 
         // GET: api/Residents/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+
+            return Ok(CityDB.Residents.First((ResidentItem) => ResidentItem.Id == id));
         }
 
         // POST: api/Residents
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post([FromBody] Resident value)
         {
+            CityDB.Residents.InsertOnSubmit(value);
+            CityDB.SubmitChanges();
+            return Ok(" item was add");
         }
 
         // PUT: api/Residents/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody] Resident value)
         {
+            Resident residentFound=CityDB.Residents.First((item)=>item.Id == id);
+            residentFound.FirstName = value.FirstName;
+            residentFound.LastName = value.LastName;
+            residentFound.BirthDay = value.BirthDay;
+            residentFound.Seniority = value.Seniority;
+            CityDB.SubmitChanges();
+            return Ok("item was update");
         }
 
         // DELETE: api/Residents/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            CityDB.Residents.DeleteOnSubmit(CityDB.Residents.First((item)=>item.Id==id));
+            CityDB.SubmitChanges();
+            return Ok("iteam was delted");
         }
     }
 }

@@ -33,6 +33,9 @@ namespace CityWebApplicationLinqToSql.Models
     partial void InsertResident(Resident instance);
     partial void UpdateResident(Resident instance);
     partial void DeleteResident(Resident instance);
+    partial void InsertSchool(School instance);
+    partial void UpdateSchool(School instance);
+    partial void DeleteSchool(School instance);
     #endregion
 		
 		public DataResidentsDataContext() : 
@@ -70,6 +73,14 @@ namespace CityWebApplicationLinqToSql.Models
 			get
 			{
 				return this.GetTable<Resident>();
+			}
+		}
+		
+		public System.Data.Linq.Table<School> Schools
+		{
+			get
+			{
+				return this.GetTable<School>();
 			}
 		}
 	}
@@ -231,6 +242,164 @@ namespace CityWebApplicationLinqToSql.Models
 					this._Seniority = value;
 					this.SendPropertyChanged("Seniority");
 					this.OnSeniorityChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.School")]
+	public partial class School : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Name;
+		
+		private string _Street;
+		
+		private System.Nullable<bool> _Public;
+		
+		private System.Nullable<int> _NumOfStudent;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnStreetChanging(string value);
+    partial void OnStreetChanged();
+    partial void OnPublicChanging(System.Nullable<bool> value);
+    partial void OnPublicChanged();
+    partial void OnNumOfStudentChanging(System.Nullable<int> value);
+    partial void OnNumOfStudentChanged();
+    #endregion
+		
+		public School()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Street", DbType="VarChar(50)")]
+		public string Street
+		{
+			get
+			{
+				return this._Street;
+			}
+			set
+			{
+				if ((this._Street != value))
+				{
+					this.OnStreetChanging(value);
+					this.SendPropertyChanging();
+					this._Street = value;
+					this.SendPropertyChanged("Street");
+					this.OnStreetChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Public]", Storage="_Public", DbType="Bit")]
+		public System.Nullable<bool> Public
+		{
+			get
+			{
+				return this._Public;
+			}
+			set
+			{
+				if ((this._Public != value))
+				{
+					this.OnPublicChanging(value);
+					this.SendPropertyChanging();
+					this._Public = value;
+					this.SendPropertyChanged("Public");
+					this.OnPublicChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfStudent", DbType="Int")]
+		public System.Nullable<int> NumOfStudent
+		{
+			get
+			{
+				return this._NumOfStudent;
+			}
+			set
+			{
+				if ((this._NumOfStudent != value))
+				{
+					this.OnNumOfStudentChanging(value);
+					this.SendPropertyChanging();
+					this._NumOfStudent = value;
+					this.SendPropertyChanged("NumOfStudent");
+					this.OnNumOfStudentChanged();
 				}
 			}
 		}
